@@ -8,7 +8,7 @@ function generateTestEmail() {
 exports["test KeyServerClient.createUser with valid email"] = function(assert, done) {
   var ksClient = new KeyServerClient();
   var email = generateTestEmail();
-  ksClient.createUser(email).
+  ksClient.createUser({ email: email }).
   then(function (result) {
     assert.equal(result.version, 1, "Returns user version is intialized to 1");
     assert.equal(result.kA.length, 64, "Returns 256 bit kA");
@@ -39,10 +39,10 @@ exports["test KeyServerClient.getUser with valid email and previously created us
   var ksClient = new KeyServerClient();
   var email = generateTestEmail();
   var kA;
-  ksClient.createUser(email).
+  ksClient.createUser({ email: email }).
   then(function (result) {
     kA = result.kA;
-    return ksClient.getUser(email);
+    return ksClient.getUser({ email: email });
   }).
   then(function(result) {
     assert.ok(result.version > 0, "Returns user version > 0");
