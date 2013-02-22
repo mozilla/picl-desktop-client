@@ -1,12 +1,12 @@
 var main = require("main");
 var KeyServerClient = require("./keyserver-client");
+var ksClient = new KeyServerClient();
 
 function generateTestEmail() {
   return "test+"+Math.floor((1+Math.random())*1000000)+"@test.com";
 };
 
 exports["test KeyServerClient.createUser with valid email"] = function(assert, done) {
-  var ksClient = new KeyServerClient();
   var email = generateTestEmail();
   ksClient.createUser({ email: email }).
   then(function (result) {
@@ -22,7 +22,6 @@ exports["test KeyServerClient.createUser with valid email"] = function(assert, d
 };
 
 exports["test KeyServerClient.createUser with missing email"] = function(assert, done) {
-  var ksClient = new KeyServerClient();
   ksClient.createUser(null).
   then(function (result) {
     console.log("shouldn't succeed: "+JSON.stringify(result));
@@ -36,7 +35,6 @@ exports["test KeyServerClient.createUser with missing email"] = function(assert,
 };
 
 exports["test KeyServerClient.getUser with valid email and previously created user"] = function(assert, done) {
-  var ksClient = new KeyServerClient();
   var email = generateTestEmail();
   var kA;
   ksClient.createUser({ email: email }).
@@ -56,7 +54,6 @@ exports["test KeyServerClient.getUser with valid email and previously created us
 };
 
 exports["test KeyServerClient.getUser with missing email"] = function(assert, done) {
-  var ksClient = new KeyServerClient();
   ksClient.getUser(null).
   then(function (result) {
     console.log("shouldn't succeed: "+JSON.stringify(result));
