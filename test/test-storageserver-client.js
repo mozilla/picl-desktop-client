@@ -69,7 +69,7 @@ exports["test StorageServerClient.updateCollection with new userId, valid token,
     assert.equal(result.version, 1, "Returns collection version == 1");
     done();
   }, function (err) {
-    L.log("error". err);
+    L.log("error", err);
     assert.fail();
     done();
   });
@@ -138,7 +138,6 @@ exports["test StorageServerClient.readCollection with new userId, valid token, a
     return ssClient.readCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, ids: [ testItem1.id ] });
   }).
   then(function (result) {
-    console.log()
     var returnedItem = result.items[0];
     assert.ok(result.version > 0, "Should return a collection version");
     assert.equal(result.items.length, 1, "Should return one item");
