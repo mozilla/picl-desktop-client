@@ -1,5 +1,5 @@
 var main = require("main");
-var StorageServerClient = require("./storageserver-client");
+var StorageServerClient = require("./storage-server-client");
 var L = require("./logger");
 var ssClient = new StorageServerClient();
 

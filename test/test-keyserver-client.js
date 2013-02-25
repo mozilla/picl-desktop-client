@@ -1,5 +1,5 @@
 var main = require("main");
-var KeyServerClient = require("./keyserver-client");
+var KeyServerClient = require("./key-server-client");
 var L = require("./logger");
 var ksClient = new KeyServerClient();
 
