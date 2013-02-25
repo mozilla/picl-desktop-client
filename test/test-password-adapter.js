@@ -1,5 +1,5 @@
 var _ = require('lib/underscore');
-var PasswordsAdapter = require('passwords-adapter').PasswordsAdapter;
+var PasswordsAdapter = require('passwords-adapter');
 
 exports['test add and export Passwords'] = function(assert,done) {
   var passwordData =
