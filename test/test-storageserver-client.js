@@ -41,7 +41,7 @@ exports["test StorageServerClient works when userId and token are given in const
     assert.ok(isEmptyObject(result.collections), "Returns empty collection set");
     done();
   }, function (err) {
-    L.log("error", err);
+    L.log("error", err.message);
     assert.fail();
     done();
   });
@@ -60,6 +60,20 @@ exports["test StorageServerClient.getCollectionsInfo with new userId and valid t
     done();
   });
 };
+
+exports["test StorageServerClient.getCollectionsInfo with no userId"] = function(assert, done) {
+  var token = generateTestToken();
+  ssClient.getCollectionsInfo({ token: token }).
+  then(function (result) {
+    L.log("shouldn't succeed:", result);
+    asser.fail();
+    done();
+  }, function (err) {
+    assert.ok(true, "Should fail");
+    done();
+  });
+};
+
 
 exports["test StorageServerClient.updateCollection with new userId, valid token, and new item"] = function(assert, done) {
   var token = generateTestToken();
