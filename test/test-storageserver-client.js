@@ -106,13 +106,53 @@ exports["test StorageServerClient.updateCollection with new userId, valid token,
   });
 };
 
+exports["test StorageServerClient.updateCollection with new userId, valid token, existing collection, new item, and ifUnmodifiedSince equal to current version of collection"] = function(assert, done) {
+  var token = generateTestToken();
+  var testItem = { id: generateId(), value: TEST_VALUE_NAME };
+  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
+  then(function (result) {
+    testItem = { id: generateId(), value: TEST_VALUE_NAME+"2" };
+    return ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ], ifUnmodifiedSince: result.version });
+  }).
+  then(function (result) {
+    assert.equal(result.version, 2, "Returns collection version == 2");
+    done();
+  }, function (err) {
+    L.log("error", err);
+    assert.fail();
+    done();
+  });
+};
+
+exports["test StorageServerClient.updateCollection with new userId, valid token, existing collection, new item, and ifUnmodifiedSince equal to one less than current version of collection"] = function(assert, done) {
+  var token = generateTestToken();
+  var testItem = { id: generateId(), value: TEST_VALUE_NAME };
+  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
+  then(function (result) {
+    testItem = { id: generateId(), value: TEST_VALUE_NAME+"2" };
+    return ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] });
+  }).
+  then(function (result) {
+    testItem = { id: generateId(), value: TEST_VALUE_NAME+"3" };
+    return ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ], ifUnmodifiedSince: result.version-1 });
+  }).
+  then(function (result) {
+    L.log("shouldn't succeed:", result);
+    assert.fail();
+    done();
+  }, function (err) {
+    assert.equal(err.code, 412, "HTTP status code should be 412");
+    done();
+  });
+};
+
 exports["test StorageServerClient.updateCollection with no userId"] = function(assert, done) {
   var token = generateTestToken();
   var testItem = { id: generateId(), value: TEST_VALUE_NAME };
   ssClient.updateCollection({ token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
   then(function (result) {
     L.log("shouldn't succeed:", result);
-    asser.fail();
+    assert.fail();
     done();
   }, function (err) {
     assert.ok(true, "Should fail");
@@ -156,6 +196,46 @@ exports["test StorageServerClient.readCollection with new userId, valid token, a
   });
 };
 
+exports["test StorageServerClient.readCollection with new userId, valid token, an existing collection, no id list, and ifModifiedSince with current version"] = function(assert, done) {
+  var token = generateTestToken();
+  var testItem = { id: generateId(), value: TEST_VALUE_NAME };
+  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
+  then(function (result) {
+    return ssClient.readCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, ifModifiedSince: result.version });
+  }).
+  then(function (result) {
+    assert.equal(result.items.length, 0, "Should return no items");
+    assert.ok(result.notModified, "Should return notModified == true")
+    done();
+  }, function (err) {
+    L.log("error", err);
+    assert.fail();
+    done();
+  });
+};
+
+exports["test StorageServerClient.readCollection with new userId, valid token, an existing collection, no id list, and ifModifiedSince with one less than current version"] = function(assert, done) {
+  var token = generateTestToken();
+  var testItem = { id: generateId(), value: TEST_VALUE_NAME };
+  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
+  then(function (result) {
+    testItem = { id: generateId(), value: TEST_VALUE_NAME+"2" };
+    return ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] });
+  }).
+  then(function (result) {
+    return ssClient.readCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, ifModifiedSince: result.version-1 });
+  }).
+  then(function (result) {
+    assert.equal(result.items.length, 2, "Should return all items");
+    assert.ok(!result.notModified, "Should not return notModified == true");
+    done();
+  }, function (err) {
+    L.log("error", err);
+    assert.fail();
+    done();
+  });
+};
+
 exports["test StorageServerClient.readCollection with new userId, valid token, an existing collection, no id list, and newer with current version"] = function(assert, done) {
   var token = generateTestToken();
   var testItem = { id: generateId(), value: TEST_VALUE_NAME };
@@ -173,6 +253,30 @@ exports["test StorageServerClient.readCollection with new userId, valid token, a
   });
 };
 
+exports["test StorageServerClient.readCollection with new userId, valid token, an existing collection, no id list, and newer with one less than current version"] = function(assert, done) {
+  var token = generateTestToken();
+  var testItem = { id: generateId(), value: TEST_VALUE_NAME };
+  var testItem2 = { id: generateId(), value: TEST_VALUE_NAME+"2" };
+  var latestVersion;
+  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem ] }).
+  then(function (result) {
+    return ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: [ testItem2 ] });
+  }).
+  then(function (result) {
+    latestVersion = result.version;
+    return ssClient.readCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, newer: result.version-1 });
+  }).
+  then(function (result) {
+    assert.equal(result.items.length, 1, "Should return one item");
+    assert.equal(result.items[0].id, testItem2.id, "Item should have correct id");
+    assert.equal(result.items[0].version, latestVersion, "Item should have latest version");
+    done();
+  }, function (err) {
+    L.log("error", err);
+    assert.fail();
+    done();
+  });
+};
 
 exports["test StorageServerClient.readCollection with new userId, valid token, an existing collection, and an id list"] = function(assert, done) {
   var token = generateTestToken();
