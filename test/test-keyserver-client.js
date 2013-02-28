@@ -67,4 +67,17 @@ exports["test KeyServerClient.getUser with missing email"] = function(assert, do
   });
 };
 
+exports["test KeyServerClient.getUser with unknown email"] = function(assert, done) {
+  ksClient.getUser({ email: 'unknownemail@unknown.com' }).
+  then(function (result) {
+    L.log("shouldn't succeed:", result);
+    assert.fail();
+    done();
+  }, function (err) {
+    assert.equal(err.code, 404, "HTTP status code should be 404");
+    done();
+  });
+};
+
+
 require("sdk/test").run(exports);
