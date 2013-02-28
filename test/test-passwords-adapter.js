@@ -3,7 +3,6 @@ var PasswordsAdapter = require('passwords-adapter');
 const loginManager = Cc["@mozilla.org/login-manager;1"].
                      getService(Ci.nsILoginManager);
 const L = require('logger');
-const setTimeout = require('timers').setTimeout;
 
 const TEST_PASSWORD_DATA = {
   hostname: "http://www.mozilla.com",
