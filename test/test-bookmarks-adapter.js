@@ -58,7 +58,6 @@ function verifyBookmarksToolbar(assert) {
   var result = PlacesUtils.getFolderContents(PlacesUtils.bookmarks.toolbarFolder);
   var rootNode = result.root;
   var node;
-
   node = rootNode.getChild(0);
   verifyQuery(assert, node, { initialMsg: "First toolbar item should be a query", title: "Most Visited" });
   node = rootNode.getChild(1);
@@ -122,6 +121,10 @@ function verifyBookmarksUnfiled(assert) {
   rootNode.containerOpen = false;
 }
 
+function verifyReadBookmarks(items, testItems) {
+  L.log("ITEMS LENGTH", items.length);
+  L.log("TEST_UPDATE_BOOKMARK_DATA", testItems.length);
+}
 
 exports['test update local bookmarks'] = function (assert, done) {
   let items = TEST_BOOKMARK_DATA.map(function (item) { return BookmarksItem(item); });
@@ -132,12 +135,27 @@ exports['test update local bookmarks'] = function (assert, done) {
     verifyBookmarksMenu(assert);
     verifyBookmarksUnfiled(assert);
     done();
+  }).then(null, function(err) {
+    assert.fail(err.message);
+    done();
   });
 }
 
 exports['test read local bookmarks'] = function (assert, done) {
-  assert.ok(true, "TODO");
-  done();
+  BookmarksAdapter.clearLocalBookmarks();
+  let items = TEST_BOOKMARK_DATA.map(function (item) { return BookmarksItem(item); });
+  BookmarksAdapter.updateLocalBookmarks(items).
+  then(function() {
+    BookmarksAdapter.clearLocalBookmarks();
+    assert.ok(true, "TODO");
+    done();
+  });
+  // then(BookmarksAdapter.readLocalBookmarks).
+  // then(function (items) {
+  //   verifyReadBookmarks(items, TEST_UPDATE_BOOKMARK_DATA);
+  //   assert.ok(true, "TODO");
+  //   done();
+  // });
 }
 
 require("sdk/test").run(exports);
