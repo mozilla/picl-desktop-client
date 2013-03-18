@@ -66,7 +66,7 @@ exports["test StorageServerClient.getCollectionsInfo with no userId"] = function
   ssClient.getCollectionsInfo({ token: token }).
   then(function (result) {
     L.log("shouldn't succeed:", result);
-    asser.fail();
+    assert.fail();
     done();
   }, function (err) {
     assert.ok(true, "Should fail");
