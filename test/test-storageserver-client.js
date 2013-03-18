@@ -95,7 +95,7 @@ exports["test StorageServerClient.updateCollection with new userId, valid token,
 exports["test StorageServerClient.updateCollection with new userId, valid token, non-existent collection, and a bunch of bookmarks"] = function(assert, done) {
   var token = generateTestToken();
   var testItems = {};
-  ssClient.updateCollection({ userId: token, token: token, collection: TEST_COLLECTION_NAME, items: TEST_BOOKMARK_DATA }).
+  ssClient.updateCollection({ userId: token, token: token, collection: "bookmarks", items: TEST_BOOKMARK_DATA }).
   then(function (result) {
     assert.equal(result.version, 1, "Returns collection version == 1");
     done();
