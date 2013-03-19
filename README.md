@@ -24,8 +24,17 @@ To run with a different build of Firefox:
 
 More cfx run options are [here](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/cfx-tool.html).
 
+Logging in and using PICL
+-------------------------
+
+The UI to log in and log out of PICL is still a work in progress. Since we are currently using the "null security architecture", you can log in to PICL with any email address. To launch the add-on and log in as a specific email address: 
+
+    cfx run --static-args="{ \"email\": \"<email>\"}"
+
+If no email is given via `--static-args`, then the add-on will use `test@mozilla.com` by default.
+
 The add-on adds `PICL Push` and `PICL Pull`
-menu items to the Firefox `Tools` menu. These will push and pull synced data from a test account, `test@mozilla.com`. Currently, bookmarks and passwords are synced.
+menu items to the Firefox `Tools` menu. Currently, bookmarks and passwords are synced.
 
 Testing
 -------
