@@ -18,11 +18,14 @@ To run with an existing profile:
 
     cfx run -p /path/to/profile
 
-To run with a different build of firefox:
+To run with a different build of Firefox:
 
     cfx run -b /path/to/binary
 
 More cfx run options are [here](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/cfx-tool.html).
+
+The add-on adds `PICL Push` and `PICL Pull`
+menu items to the Firefox `Tools` menu. These will push and pull synced data from a test account, `test@mozilla.com`. Currently, bookmarks and passwords are synced.
 
 Testing
 -------
@@ -33,7 +36,7 @@ To run all the tests:
 
     cfx test --verbose
 
-To run only a subset of the tests, use `-f FILENAME[:TESTNAME]`, both regular expressions, for example:
+To run only a subset of the tests, use `-f FILENAME[:TESTNAME]`, where `FILENAME` and `TESTNAME` are both regular expressions, for example:
 
     cfx test --verbose -f storageserver:getCollectionsInfo
 
