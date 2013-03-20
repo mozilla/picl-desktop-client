@@ -130,6 +130,9 @@ function verifyReadBookmarks(assert, items, testItems) {
     testItems.forEach(function (testItem) {
       // places root is special so ignore it because the parentName and parentId are screwed up
       if (item.id !== "places" && item.id === testItem.id) {
+        if (!_.isEqual(testItem, item)) {
+          L.log("not equal", testItem, item);
+        }
         result = result && _.isEqual(testItem, item);
         canary = true;
         //L.log("IS EQ",testItem, item);
