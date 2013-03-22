@@ -1,0 +1,48 @@
+
+div#error {
+    background: #fee;
+}
+
+span#user {
+    font-family: "Courier New",Courier,monospace;
+}
+
+div.tabs ul {
+}
+
+li.device-entry {
+    background: #efe;
+    border-radius: 10px;
+    border: 1px solid #888;
+    max-width: 60%;
+    padding: 3px; /* between text and edge of box */
+    margin: 5px; /* between devices */
+}
+
+li.device-entry.my-device {
+    background: #898;
+    max-width: 55%;
+}
+
+li.device-entry.offline span.if-online {
+    display: none;
+}
+
+li.tab-entry {
+    background: #eee;
+    border: 1px solid #bbb;
+    max-width: 90%;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+li.device-entry.my-device li.tab-entry {
+    background: #888;
+    border: 1px solid #777;
+}
+
+li.tab-entry img {
+    margin-left: 2px;
+    margin-right: 2px;
+}
