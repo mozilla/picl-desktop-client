@@ -13,69 +13,39 @@
 </head>
 <body>
   <div class="container">
-    <h1>My Tabs</h1>
+    <h1>My Open Tabs</h1>
 
     <div style="display: none;" id="error"></div>
 
-<!--    <p>Device name: <span id="my-device-name"></span></p> -->
-    <div style="display: none;" id="logged-in">
-      <p>Logged in as: <span id="user"></span></p>
-    </div>
-
-    <!--
-    <img id="sign-in" src="plain_sign_in_black.png">
-    -->
-
-    <div id="tabs"><div class="device-entry offline">
-        <div class="device-info">
-          <p class="device-name">Chriss-MacBook-Pro-5xmj6fhfpicl1</p>
-          <p class="last-synced">Last synced: <span>some time here</span></p>
+    <div id="tabs"><div class="device-entry">
+      <div class="device-info">
+        <div class="span1"><img src="img/devices/computer.png" class="device-icon"></div>
+        <div>
+          <p class="device-name">This computer</p>
+          <p class="last-synced">Last synced: <span class="last-synced-time">now</span></p>
         </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">My Tabs</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">host-4-210-5xmj6fhfpicl1</span>
-        </div>
-        <ul class="device-tabs"><li style="margin: 0px;" class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">TabThing</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">Chriss-MacBook-Pro-qk5h9g8apicl2</span>
-        </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">TabThing</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">Chriss-MacBook-Pro-tmpF0EKMZmozrunner</span>
-        </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">TabThing</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">Chriss-MacBook-Pro-tmpsQOC9kmozrunner</span>
-        </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">TabThing</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">FxSync on Nexus 4</span>
-        </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="https://github.com/favicon.ico" class="tab-favicon"><a target="_blank" href="https://github.com/">GitHub · Build software better, together.</a></li><li class="tab-entry"><img src="http://www.redditstatic.com/icon.png" class="tab-favicon"><a target="_blank" href="http://www.reddit.com/">reddit: the front page of the internet</a></li><li class="tab-entry"><img style="display: none;" class="tab-favicon"><a target="_blank" href="https://login.persona.org/">Mozilla Persona: A Better Way to Sign In</a></li></ul>
-      </div><div class="device-entry online">
-        <div class="device-info">
-          Tabs from: <span class="device-name">host-4-210-yjf7h39vdev</span>
-        </div>
-        <ul class="device-tabs"><li class="tab-entry"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArklEQVR42t2TMQ4CIRBF9xBGEw5AkBJKY7uhcHsCjfEkHkJDLOWiyDeTyWoFwcriMcD8/wMkTKWUId6DMUYrpa5Symddb1CB9/4IaM09aOHhgLpxyzlf6jxChErsibjuQQsPB1C6hKARCQ8HcHof8eMEvQHwDAX89grOuVNvADx/9AbjJ7DWPkIIh1YztPBwQErprLW+t34maOFZv8G2MlcWIcSESuyI5as3k2d6AZGetvsfEgPvAAAAAElFTkSuQmCC" class="tab-favicon"><a target="_blank" href="resource://jid1-xidvk7fid7m4aw-at-jetpack/picl-desktop-client/data/main.html">TabThing</a></li></ul>
-      </div></div>
+      </div>
+      <ul class="device-tabs"></ul>
+    </div></div>
   </div>
 
-    <div id="templates" style="display: none">
+  <div id="templates" style="display: none">
 
-      <div class="device-entry">
-        <div class="device-info">
-          Tabs from: <span class="device-name"></span>
+    <div class="device-entry">
+      <div class="device-info">
+        <div class="span1"><img class="device-icon"></div>
+        <div>
+          <p class="device-name"></p>
+          <p class="last-synced">Last synced: <span class="last-synced-time"></span></p>
         </div>
-        <ul class="device-tabs"></ul>
       </div>
-
-      <li class="tab-entry"><img class="tab-favicon"><a href=""></a></li>
+      <ul class="device-tabs"></ul>
     </div>
+
+    <li class="tab-entry"><img class="tab-favicon"><a href=""></a></li>
+  </div>
+
+
 
 
 

@@ -5,8 +5,14 @@
 var sendToBackend;
 var myDeviceInfo;
 
-var $rowTemplate =
-$('<tr class="tab-entry"><td class="tab-favicon" style="width: 20px;"><img><i class="icon-globe hide"></i></td><td><a href=""></a></td></tr>');
+function getDeviceIconPathForDeviceType(type) {
+    if (type === 'computer') {
+        return "img/devices/computer.png";
+    }
+    else {
+        return "img/devices/mobile.png";
+    }
+}
 
 function msgFromBackend(name, data) {
     console.log("msgFromBackend", name, data);
@@ -27,22 +33,32 @@ function msgFromBackend(name, data) {
         var $tabContainer = $("div#tabs");
         $tabContainer.empty();
         var devices = data;
-        devices.sort(function (a,b) { if (a.clientName == myDeviceInfo.profileID) return -1; else return 1; });
-
+        devices.sort(function (a,b) {
+            if (a.clientName == myDeviceInfo.profileID) return -1;
+            if (b.clientName == myDeviceInfo.profileID) return 1;
+            return b.timestamp - a.timestamp;
+        });
         devices.forEach(function(deviceInfo) {
-            var online = deviceInfo.timestamp
-            var $dt = $("#templates>div.device-entry").clone();
-            $dt.find(".device-name").text(deviceInfo.clientName);
-            if (online)
-                $dt.addClass("online");
-            else
-                $dt.addClass("offline");
+            var timestamp = deviceInfo.timestamp || new Date().getTime();
+            var date = new Date(timestamp);
+            var $deviceEntry = $("#templates>div.device-entry").clone();
+            if (deviceInfo.clientName === myDeviceInfo.profileID) {
+                $deviceEntry.find(".device-name").text("This computer");
+                $deviceEntry.find(".last-synced-time").text('now');
+                $deviceEntry.find(".device-icon").attr("src", getDeviceIconPathForDeviceType('computer'));
+            }
+            else {
+                $deviceEntry.find(".device-name").text(deviceInfo.clientName);
+                $deviceEntry.find(".last-synced-time").text(date.toLocaleString());
+                $deviceEntry.find(".device-icon").attr("src", getDeviceIconPathForDeviceType(deviceInfo.deviceType));
+            }
+
             var tabs = deviceInfo.tabs || [];
-            console.log("tabs", tabs);
-            if (tabs.length > 0)
-               $tabContainer.append($dt);
             // var tul = dul.find("ul.device-tabs");
-            $tb = $dt.find(".device-tabs");
+            $deviceTabs = $deviceEntry.find(".device-tabs");
+            tabs = tabs.filter(function (tab) {
+                return (tab.title !== "My Tabs" && tab.title !== "TabThing");
+            });
             tabs.forEach(function(tab) {
                 var title = tab.title || "(no title)";
                 var $t = $("#templates>.tab-entry").clone();
@@ -54,9 +70,9 @@ function msgFromBackend(name, data) {
                 else {
                     $t.find(".tab-favicon").attr("src", "img/globe.ico");
                 }
-                console.log("appending", $t);
-                $tb.append($t);
+                $deviceTabs.append($t);
             });
+            if (tabs.length > 0 || deviceInfo.clientName === myDeviceInfo.profileID) $tabContainer.append($deviceEntry);
         });
     }
 

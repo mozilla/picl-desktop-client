@@ -9,7 +9,7 @@ ul.device-tabs {
 }
 
 div.device-info {
-    padding: 5px;
+    padding: 5px 0px;
     background: #e2e2e2;
 }
 
@@ -34,8 +34,16 @@ li.tab-entry {
 }
 
 img.tab-favicon {
-    width: 20px;
+    width: 16px;
     padding: 0px 10px;
+}
+
+.device-info .span1 {
+    margin-left: 0px;
+}
+
+img.device-icon {
+    margin-top: 5px;
 }
 
 
@@ -88,7 +96,3 @@ li.tab-entry img {
     margin-right: 2px;
 }
 */
-
-.narrow-container {
-    max-width: 700px;
-}
