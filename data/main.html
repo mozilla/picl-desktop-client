@@ -1,44 +1,51 @@
 <html>
 <head>
  <meta charset="utf-8">
- <title>TabThing</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>My Tabs</title>
+ <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
  <link rel="stylesheet" href="css/main.css" type="text/css" />
  <script type="text/javascript" src="jquery-1.9.0.js"></script>
+ <script src="js/bootstrap.min.js"></script>
  <script type="text/javascript" src="main.js"></script>
  <!-- addon-comms.js will be injected to relay events on 'window' to the
       addon backend -->
 </head>
 
 <body>
-<h1>Tab Thing</h1>
+  <div class="container">
+    <h1>My Tabs</h1>
 
-<div id="error"></div>
+    <div id="error"></div>
 
-<p>Device name: <span id="my-device-name"></span></p>
-<div id="logged-in">
-  <p>Logged in as: <span id="user"></span></p>
-</div>
+<!--    <p>Device name: <span id="my-device-name"></span></p> -->
+    <div id="logged-in">
+      <p>Logged in as: <span id="user"></span></p>
+    </div>
 
-<!--
-<img id="sign-in" src="plain_sign_in_black.png">
--->
+    <!--
+    <img id="sign-in" src="plain_sign_in_black.png">
+    -->
 
-<div id="tabs">
-  <ul>
-    <li>list of tabs goes here</li>
-  </ul>
-</div>
+    <div id="tabs">
+      <ul>
+        <li>list of tabs goes here</li>
+      </ul>
+    </div>
+  </div>
 
+    <div id="templates" style="display: none">
 
-<div id="templates" style="display: none">
-  <li class="device-entry">
-  Tabs from: <span class="device-name"></span>
-  <span class="if-online">[online]</span>
-  <ul class="device-tabs"></ul>
-  </li>
+      <div class="device-entry">
+        <div class="device-info">
+          <p class="device-name"></p>
+          <p class="last-synced">Last synced: <span>some time here</span></p>
+        </div>
+        <ul class="device-tabs"></ul>
+      </div>
 
-  <li class="tab-entry"><img class="tab-favicon"><a href=""></a></li>
-</div>
+      <li class="tab-entry"><img class="tab-favicon"><a href=""></a></li>
+    </div>
 
 </body>
 </html>

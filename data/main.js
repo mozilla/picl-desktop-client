@@ -5,6 +5,9 @@
 var sendToBackend;
 var myDeviceInfo;
 
+var $rowTemplate =
+$('<tr class="tab-entry"><td class="tab-favicon" style="width: 20px;"><img><i class="icon-globe hide"></i></td><td><a href=""></a></td></tr>');
+
 function msgFromBackend(name, data) {
     console.log("msgFromBackend", name, data);
 
@@ -21,36 +24,74 @@ function msgFromBackend(name, data) {
     }
 
     if (name == "tabs") {
-        var ul = $("div#tabs > ul");
-        ul.empty();
+        var $tabContainer = $("div#tabs");
+        $tabContainer.empty();
         var devices = data;
+        devices.sort(function (a,b) { if (a.clientName == myDeviceInfo.profileID) return -1; else return 1; });
+
         devices.forEach(function(deviceInfo) {
             var online = deviceInfo.timestamp
-            var dul = $("#templates>.device-entry").clone();
-            dul.find("span.device-name").text(deviceInfo.clientName);
-            if (deviceInfo.clientName == myDeviceInfo.profileID)
-                dul.addClass("my-device");
+            var $dt = $("#templates>div.device-entry").clone();
+            $dt.find("span.device-name").text(deviceInfo.clientName);
             if (online)
-                dul.addClass("online");
+                $dt.addClass("online");
             else
-                dul.addClass("offline");
-            ul.append(dul);
-            var tul = dul.find("ul.device-tabs");
+                $dt.addClass("offline");
             var tabs = deviceInfo.tabs || [];
+            console.log("tabs", tabs);
+            if (tabs.length > 0)
+               $tabContainer.append($dt);
+            // var tul = dul.find("ul.device-tabs");
+            $tb = $dt.find(".device-tabs");
             tabs.forEach(function(tab) {
                 var title = tab.title || "(no title)";
-                var t = $("#templates>.tab-entry").clone();
+                var $t = $("#templates>.tab-entry").clone();
                 var url = tab.url || tab.urlHistory[0];
-                t.find("a").attr("href", url).attr("target", "_blank");
-                t.find("a").text(title);
+                $t.find("a").attr("href", url).attr("target", "_blank");
+                $t.find("a").text(title);
                 if (tab.icon)
-                    t.find("img.tab-favicon").attr("src", tab.icon);
-                else
-                    t.find("img.tab-favicon").remove();
-                tul.append(t);
+                    $t.find(".tab-favicon").attr("src", tab.icon);
+                else {
+                    $t.find("img.tab-favicon").hide();
+                    $t.find("i").show();
+                }
+                console.log("appending", $t);
+                $tb.append($t);
             });
         });
     }
+
+    // if (name == "tabs") {
+    //     var ul = $("div#tabs > ul");
+    //     ul.empty();
+    //     var devices = data;
+    //     devices.forEach(function(deviceInfo) {
+    //         var online = deviceInfo.timestamp
+    //         var dul = $("#templates>.device-entry").clone();
+    //         dul.find("span.device-name").text(deviceInfo.clientName);
+    //         if (deviceInfo.clientName == myDeviceInfo.profileID)
+    //             dul.addClass("my-device");
+    //         if (online)
+    //             dul.addClass("online");
+    //         else
+    //             dul.addClass("offline");
+    //         ul.append(dul);
+    //         var tul = dul.find("ul.device-tabs");
+    //         var tabs = deviceInfo.tabs || [];
+    //         tabs.forEach(function(tab) {
+    //             var title = tab.title || "(no title)";
+    //             var t = $("#templates>.tab-entry").clone();
+    //             var url = tab.url || tab.urlHistory[0];
+    //             t.find("a").attr("href", url).attr("target", "_blank");
+    //             t.find("a").text(title);
+    //             if (tab.icon)
+    //                 t.find("img.tab-favicon").attr("src", tab.icon);
+    //             else
+    //                 t.find("img.tab-favicon").remove();
+    //             tul.append(t);
+    //         });
+    //     });
+    // }
     console.log("done");
 }
 
