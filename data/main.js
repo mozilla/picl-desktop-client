@@ -55,7 +55,7 @@ function msgFromBackend(name, data) {
 
             var tabs = deviceInfo.tabs || [];
             // var tul = dul.find("ul.device-tabs");
-            $deviceTabs = $deviceEntry.find(".device-tabs");
+            var $deviceTabs = $deviceEntry.find(".device-tabs");
             tabs = tabs.filter(function (tab) {
                 return (tab.title !== "My Tabs" && tab.title !== "TabThing");
             });
