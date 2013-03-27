@@ -1,4 +1,53 @@
+div.device-entry {
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 3px;
+    margin: 20px 0px;
+}
 
+ul.device-tabs {
+    margin: 0px;
+}
+
+div.device-info {
+    padding: 5px 0px;
+    background: #e2e2e2;
+}
+
+p.device-name {
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+p.last-synced {
+    margin-bottom: 0px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+li.tab-entry {
+    list-style-type: none;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgb(192, 192, 192);
+    padding: 5px;
+    background: rgb(250, 250, 250);
+}
+
+img.tab-favicon {
+    width: 16px;
+    padding: 0px 10px;
+}
+
+.device-info .span1 {
+    margin-left: 0px;
+}
+
+img.device-icon {
+    margin-top: 5px;
+}
+
+
+/*
 div#error {
     background: #fee;
 }
@@ -9,16 +58,16 @@ span#user {
 
 div.tabs ul {
 }
-
-li.device-entry {
+*/
+/*li.device-entry {
     background: #efe;
     border-radius: 10px;
     border: 1px solid #888;
     max-width: 60%;
     padding: 3px; /* between text and edge of box */
-    margin: 5px; /* between devices */
+    /*margin: 5px; /* between devices */
 }
-
+/*
 li.device-entry.my-device {
     background: #898;
     max-width: 55%;
@@ -46,3 +95,4 @@ li.tab-entry img {
     margin-left: 2px;
     margin-right: 2px;
 }
+*/

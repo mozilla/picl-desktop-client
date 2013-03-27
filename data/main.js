@@ -5,6 +5,15 @@
 var sendToBackend;
 var myDeviceInfo;
 
+function getDeviceIconPathForDeviceType(type) {
+    if (type === 'computer') {
+        return "img/devices/computer.png";
+    }
+    else {
+        return "img/devices/mobile.png";
+    }
+}
+
 function msgFromBackend(name, data) {
     console.log("msgFromBackend", name, data);
 
@@ -21,36 +30,83 @@ function msgFromBackend(name, data) {
     }
 
     if (name == "tabs") {
-        var ul = $("div#tabs > ul");
-        ul.empty();
+        var $tabContainer = $("div#tabs");
+        $tabContainer.empty();
         var devices = data;
+        devices.sort(function (a,b) {
+            if (a.clientName == myDeviceInfo.profileID) return -1;
+            if (b.clientName == myDeviceInfo.profileID) return 1;
+            return b.timestamp - a.timestamp;
+        });
         devices.forEach(function(deviceInfo) {
-            var online = deviceInfo.timestamp
-            var dul = $("#templates>.device-entry").clone();
-            dul.find("span.device-name").text(deviceInfo.clientName);
-            if (deviceInfo.clientName == myDeviceInfo.profileID)
-                dul.addClass("my-device");
-            if (online)
-                dul.addClass("online");
-            else
-                dul.addClass("offline");
-            ul.append(dul);
-            var tul = dul.find("ul.device-tabs");
+            var timestamp = deviceInfo.timestamp || new Date().getTime();
+            var date = new Date(timestamp);
+            var $deviceEntry = $("#templates>div.device-entry").clone();
+            if (deviceInfo.clientName === myDeviceInfo.profileID) {
+                $deviceEntry.find(".device-name").text("This computer");
+                $deviceEntry.find(".last-synced-time").text('now');
+                $deviceEntry.find(".device-icon").attr("src", getDeviceIconPathForDeviceType('computer'));
+            }
+            else {
+                $deviceEntry.find(".device-name").text(deviceInfo.clientName);
+                $deviceEntry.find(".last-synced-time").text(date.toLocaleString());
+                $deviceEntry.find(".device-icon").attr("src", getDeviceIconPathForDeviceType(deviceInfo.deviceType));
+            }
+
             var tabs = deviceInfo.tabs || [];
+            // var tul = dul.find("ul.device-tabs");
+            $deviceTabs = $deviceEntry.find(".device-tabs");
+            tabs = tabs.filter(function (tab) {
+                return (tab.title !== "My Tabs" && tab.title !== "TabThing");
+            });
             tabs.forEach(function(tab) {
                 var title = tab.title || "(no title)";
-                var t = $("#templates>.tab-entry").clone();
+                var $t = $("#templates>.tab-entry").clone();
                 var url = tab.url || tab.urlHistory[0];
-                t.find("a").attr("href", url).attr("target", "_blank");
-                t.find("a").text(title);
+                $t.find("a").attr("href", url).attr("target", "_blank");
+                $t.find("a").text(title);
                 if (tab.icon)
-                    t.find("img.tab-favicon").attr("src", tab.icon);
-                else
-                    t.find("img.tab-favicon").remove();
-                tul.append(t);
+                    $t.find(".tab-favicon").attr("src", tab.icon);
+                else {
+                    $t.find(".tab-favicon").attr("src", "img/globe.ico");
+                }
+                $deviceTabs.append($t);
             });
+            if (tabs.length > 0 || deviceInfo.clientName === myDeviceInfo.profileID) $tabContainer.append($deviceEntry);
         });
     }
+
+    // if (name == "tabs") {
+    //     var ul = $("div#tabs > ul");
+    //     ul.empty();
+    //     var devices = data;
+    //     devices.forEach(function(deviceInfo) {
+    //         var online = deviceInfo.timestamp
+    //         var dul = $("#templates>.device-entry").clone();
+    //         dul.find("span.device-name").text(deviceInfo.clientName);
+    //         if (deviceInfo.clientName == myDeviceInfo.profileID)
+    //             dul.addClass("my-device");
+    //         if (online)
+    //             dul.addClass("online");
+    //         else
+    //             dul.addClass("offline");
+    //         ul.append(dul);
+    //         var tul = dul.find("ul.device-tabs");
+    //         var tabs = deviceInfo.tabs || [];
+    //         tabs.forEach(function(tab) {
+    //             var title = tab.title || "(no title)";
+    //             var t = $("#templates>.tab-entry").clone();
+    //             var url = tab.url || tab.urlHistory[0];
+    //             t.find("a").attr("href", url).attr("target", "_blank");
+    //             t.find("a").text(title);
+    //             if (tab.icon)
+    //                 t.find("img.tab-favicon").attr("src", tab.icon);
+    //             else
+    //                 t.find("img.tab-favicon").remove();
+    //             tul.append(t);
+    //         });
+    //     });
+    // }
     console.log("done");
 }
 

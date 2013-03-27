@@ -11,14 +11,22 @@
  <!-- addon-comms.js will be injected to relay events on 'window' to the
       addon backend -->
 </head>
-
 <body>
   <div class="container">
     <h1>My Open Tabs</h1>
 
-    <div id="error"></div>
+    <div style="display: none;" id="error"></div>
 
-    <div id="tabs"></div>
+    <div id="tabs"><div class="device-entry">
+      <div class="device-info">
+        <div class="span1"><img src="img/devices/computer.png" class="device-icon"></div>
+        <div>
+          <p class="device-name">This computer</p>
+          <p class="last-synced">Last synced: <span class="last-synced-time">now</span></p>
+        </div>
+      </div>
+      <ul class="device-tabs"></ul>
+    </div></div>
   </div>
 
   <div id="templates" style="display: none">
@@ -36,6 +44,10 @@
 
     <li class="tab-entry"><img class="tab-favicon"><a href=""></a></li>
   </div>
+
+
+
+
 
 </body>
 </html>
