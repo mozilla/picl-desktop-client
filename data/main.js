@@ -32,7 +32,7 @@ function msgFromBackend(name, data) {
         devices.forEach(function(deviceInfo) {
             var online = deviceInfo.timestamp
             var $dt = $("#templates>div.device-entry").clone();
-            $dt.find("span.device-name").text(deviceInfo.clientName);
+            $dt.find(".device-name").text(deviceInfo.clientName);
             if (online)
                 $dt.addClass("online");
             else
@@ -52,8 +52,7 @@ function msgFromBackend(name, data) {
                 if (tab.icon)
                     $t.find(".tab-favicon").attr("src", tab.icon);
                 else {
-                    $t.find("img.tab-favicon").hide();
-                    $t.find("i").show();
+                    $t.find(".tab-favicon").attr("src", "img/globe.ico");
                 }
                 console.log("appending", $t);
                 $tb.append($t);
