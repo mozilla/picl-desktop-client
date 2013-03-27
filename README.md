@@ -1,7 +1,7 @@
 PICL Desktop Client
 ===================
 
-This is the desktop Firefox client for PiCL (Profile in the CLoud). This add-on will sync passwords, tabs, and bookmarks with the [picl-server](https://github.com/mozilla/picl-server), encrypted with keys provided by the [picl-keyserver](https://github.com/mozilla/picl-keyserver).
+This is the desktop Firefox client for PiCL (Profile in the CLoud). This add-on will sync passwords, tabs, and bookmarks with the [picl-server](https://github.com/mozilla/picl-server), encrypted with keys provided by the [picl-keyserver](https://github.com/mozilla/picl-keyserver). (Note: encryption is currently not being done.)
 
 Running and testing the PICL Desktop Client requires the [Jetpack SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/). Installation instructions are [here](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html). Testing and running the add-on depends heavily on [cfx](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/cfx-tool.html), a command line tool included with the SDK.
 
@@ -31,10 +31,12 @@ The UI to log in and log out of PICL is still a work in progress. Since we are c
 
     cfx run --static-args="{ \"email\": \"<email>\"}"
 
-If no email is given via `--static-args`, then the add-on will use `test@mozilla.com` by default.
+If no email is given via `--static-args`, then the add-on will use a test account by default.
 
-The add-on adds `PICL Push` and `PICL Pull`
-menu items to the Firefox `Tools` menu. Currently, bookmarks and passwords are synced.
+The add-on adds `PICL Start` and `PICL Stop`
+menu items to the Firefox `Tools` menu. `PICL Start` will start syncing against either the specified account or test account, and `PICL Stop` will stop syncing. Currently, bookmarks, passwords, and tabs are synced. 
+
+`PICL Start` will also open a page that shows your open tabs on this and other synced browsers. You can reopen this page via the `PICL Tabs` menu item.
 
 Testing
 -------
