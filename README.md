@@ -7,6 +7,11 @@ Running and testing the PICL Desktop Client requires the [Jetpack SDK](https://a
 
 By default, the add-on runs against and is tested against the "standup" dev servers. To run it against locally running servers, set `LOCAL_SERVERS=true` in `lib/config.js`. When `LOCAL_SERVERS=true`, the add-on assumes the key server is running at `127.0.0.1:8090` and the storage server is running at `127.0.0.1:8080`.
 
+WARNING
+-------
+THIS IS DEVELOPMENT-QUALITY, PRE-ALPHA SOFTWARE. IT IS LACKING MANY SECURITY MECHANISMS, DOES NOT USE AUTHENTICATION OR ENCRYPTION, HAS NO DATA BACKUP, AND IS NOT STABLE. YOU MAY LOSE ALL YOUR PROFILE DATA WITH THIS ADD-ON. USE THIS ADD-ON WITH TEST PROFILES AND DATA ONLY.
+
+
 Running
 -------
 
@@ -24,15 +29,28 @@ To run with a different build of Firefox:
 
 More cfx run options are [here](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/cfx-tool.html).
 
-Logging in and using PICL
--------------------------
-
+Logging in with the NULL security architecture
+----------------------------------------------
 The UI to log in and log out of PICL is still a work in progress. Since we are currently using the "null security architecture", you can log in to PICL with any email address. To launch the add-on and log in as a specific email address: 
 
     cfx run --static-args="{ \"email\": \"<email>\"}"
 
 If no email is given via `--static-args`, then the add-on will use a test account by default.
 
+Logging in with Persona
+-----------------------
+The add-on also supports "login to the browser" with Persona, but you need a [special build of Nightly](http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/jparsons@mozilla.com-c4ea7c9d58ae/). When using this special build of Nightly, first log in to the browser via `Persona Login` in the `Tools` menu. After logging in to the browser, follow the instructions for "Using PICL" below.
+
+You can launch the add-on with this special Nightly build with:
+
+    cfx run -a firefox -b /path/to/special/nightly/binary
+
+e.g.:
+
+    cfx run -a firefox -b /Applications/FirefoxNightly.app/Contents/MacOS/firefox
+
+Using PICL
+----------
 The add-on adds `PICL Start` and `PICL Stop`
 menu items to the Firefox `Tools` menu. `PICL Start` will start syncing against either the specified account or test account, and `PICL Stop` will stop syncing. Currently, bookmarks, passwords, and tabs are synced. 
 
