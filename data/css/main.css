@@ -38,6 +38,11 @@ img.tab-favicon {
     padding: 0px 10px;
 }
 
+img.tab-thumbnail {
+    height: 40px;
+    padding: 0px 10px;
+}
+
 .device-info .span1 {
     margin-left: 0px;
 }

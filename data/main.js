@@ -65,8 +65,13 @@ function msgFromBackend(name, data) {
                 var url = tab.url || tab.urlHistory[0];
                 $t.find("a").attr("href", url).attr("target", "_blank");
                 $t.find("a").text(title);
-                if (tab.icon)
+                if (tab.icon && tab.icon.indexOf("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8") === -1) {
                     $t.find(".tab-favicon").attr("src", tab.icon);
+                }
+                else if (tab.thumbnail) {
+                    $t.find(".tab-favicon").hide();
+                    $t.find(".tab-thumbnail").show().attr("src", tab.thumbnail);
+                }
                 else {
                     $t.find(".tab-favicon").attr("src", "img/globe.ico");
                 }
