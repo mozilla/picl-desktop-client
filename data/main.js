@@ -60,11 +60,11 @@ function msgFromBackend(name, data) {
                 return (tab.title !== "My Tabs" && tab.title !== "TabThing");
             });
             tabs.forEach(function(tab) {
-                var title = tab.title || "(no title)";
+                var title = tab.title;
                 var $t = $("#templates>.tab-entry").clone();
                 var url = tab.url || tab.urlHistory[0];
                 $t.find("a").attr("href", url).attr("target", "_blank");
-                $t.find("a").text(title);
+                $t.find("a").text(title || url);
                 if (tab.icon && tab.icon.indexOf("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8") === -1) {
                     $t.find(".tab-favicon").attr("src", tab.icon);
                 }
