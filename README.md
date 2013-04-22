@@ -39,7 +39,7 @@ If no email is given via `--static-args`, then the add-on will use a test accoun
 
 Logging in with Persona
 -----------------------
-The add-on also supports "login to the browser" with Persona, but you need a [special build of Nightly](http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/jparsons@mozilla.com-c4ea7c9d58ae/). When using this special build of Nightly, first log in to the browser via `Persona Login` in the `Tools` menu. After logging in to the browser, follow the instructions for "Using PICL" below.
+The add-on also supports "login to the browser" with Persona, but you need a [special build of Nightly](http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/jparsons@mozilla.com-bf2e09909f8b/). When using this special build of Nightly, first log in to the browser via `Persona Login` in the `Tools` menu. After logging in to the browser, follow the instructions for "Using PICL" below.
 
 You can launch the add-on with this special Nightly build with:
 
